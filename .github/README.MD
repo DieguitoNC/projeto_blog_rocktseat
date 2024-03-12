@@ -1,3 +1,10 @@
+# Projeto de criar um blog utilizando algumas características avançadas do CSS
+Sendo elas: Grid, Variáveis, API que gera imagens aleatórias, modo de formatar sem perder a qualidade, acessibilidade no placeholder, proporção de imagem, filtro, animação no CSS e cor com HSL
+
+# Projeto final
+
+![Imagem do projeto](image.png)
+
 
 # font-smoothing
 - deixa a fonte das letras mais "smooth"
@@ -189,4 +196,278 @@ main {
 ```
 
 # CSS Transition
+- Para realizar a transição posso utilizar a função de filtro e transform
+- Com isso, posso definir quais são as propriedades afetadas, a duração, o delay pra acontecer e o tipo de timing
+## Transition-timing-function
+- Há a opção de ease-in, ease-in-out e ease-out como principais modos de utlizar.
+```
+.item img {
+
+  width: 100%;
+
+  aspect-ratio: 16/9;
+
+  object-fit: cover;
+
+  
+
+  transition-property: transform,filter;
+
+  transition-duration: 200ms;
+
+  transition-delay: 0;
+
+  transition-timing-function:ease-out;
+
+  
+
+}
+
+  
+
+.item img:hover {
+
+  filter: hue-rotate(7deg) contrast(101%) saturate(200%);
+
+  transform: scale(1.1) rotate(-2deg);
+
+}
+```
+```
+  transition: all 200ms ease-out;
+```
 # CSS Animation
+- https://animista.net/
+```
+.square {
+
+  animation-name: move;
+
+  animation-duration: 1s;
+
+  animation-fill-mode: forwards;
+
+}
+
+  
+
+@keyframes move {
+
+  0% {
+
+  
+  
+
+  }
+
+  
+
+  100% {
+
+    transform: translateX(calc(100vw - 100% - 16px));    
+
+  }
+
+}
+```
+## Animation name
+- Dentro do objeto que precisa ter animação, colocar essa proproiedade
+## Animation-duration
+- Duração da Animação
+## ANIMATION-FILL-MODE
+- Modo que a ação vai ficar ao completar seu movimento
+## from e to 
+- Define o ponto inicial e o ponto final da aplicação
+## @keyframe define o nome da animação
+
+## animation-direction
+- Define a direção da animação
+### animation-direction-alternate 
+- Possibilita alterar a direação
+## Animation-interation-count
+- Possibilita definir a quantidade de vezes que o objeto anima
+- Para ficar infinito, basta colocar como "infinite"
+```
+.square {
+
+  animation-name: move;
+
+  animation-duration: 1s;
+
+  animation-fill-mode: forwards;
+
+  animation-direction:alternate;
+
+  animation-iteration-count: infinite;
+
+}
+```
+## animation-delay
+- Define o delay para a ação começar ou não
+## animation-timing-function
+- Tem 2 opções a primeira seria definir pelos modo: ease, ease-in, ease-out, ease-in-out
+- tem o linear que fica muito smooth o movimento
+- Aplicar o outro método que seria por steps
+- cubic-bezier -> movimentos customizados
+```
+.square {
+
+  animation-name: move;
+
+  animation-duration: 1s;
+
+  animation-fill-mode: forwards;
+
+  animation-direction:alternate;
+
+  animation-iteration-count: infinite;
+
+  animation-delay: ;
+
+  animation-timing-function:cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+}
+```
+## animation-play-estate:pause com hover
+- Faz com que ao deixar o mouse em cima
+
+## Pode haver mais de uma animação em um mesmo objeto
+```
+.square {
+
+  animation-name: move, blink;
+
+  animation-duration: 1s, 200ms;
+
+  animation-fill-mode: forwards;
+
+  animation-direction: alternate;
+
+  animation-iteration-count: infinite;
+
+  /* animation-delay: 2s; */
+
+  animation-timing-function: steps(10);
+
+}
+
+  
+
+.square:hover {
+
+  animation-play-state:paused;
+
+}
+
+  
+
+@keyframes move {
+
+  /* to */
+
+  100% {
+
+    transform: translateX(calc(100vw - 100% - 16px));
+
+  }
+
+}
+
+  
+
+@keyframes blink {
+
+  0%, 100% {
+
+    opacity: 0.6;
+
+  }
+
+  
+
+  50% {
+
+    opacity: 1;
+
+  }
+
+}
+```
+
+## short hand
+```
+`animation: move 1s forwards alternate infinite, blink 100ms infinite;`
+```
+
+## Animações no projeto
+```
+@keyframes move {
+
+  from {
+
+    transform: translateY(var(--startY));
+
+  }
+
+}
+
+  
+
+.item {
+
+  --delay: 0.4s;
+
+  animation: appear 0.4s var(--delay) backwards;
+
+}
+
+  
+
+@keyframes appear {
+
+  0% {
+
+    opacity: 0;
+
+    transform: scale(0.7);
+
+  }
+
+  
+
+  50% {
+
+    transform: scale(1.2);
+
+  }
+
+}
+```
+# Alterando tom de cores totais com HSL
+- Serve para mudar toda a tonalidade de cores ao mexer apenas em uma propriedade que seria o HUE
+- A última propriedade é aquela que faz a saturação
+- ![[I5rGs.png]]
+```
+:root {
+
+  font-size: 62.5%;
+
+  
+  
+
+  --hue: 240;
+
+  --color-base-white: hsl(0, 0%, 100%);
+
+  --color-base-gray-100: hsl(0, 0%, 96%);
+
+  --color-base-gray-300: hsl(var(--hue), 6%, 58%);
+
+  --color-base-gray-500: hsl(0, 0%, 24%);
+
+  --color-base-gray-900: hsl(var(--hue), 6%, 13%);
+
+  
+
+}
+```
